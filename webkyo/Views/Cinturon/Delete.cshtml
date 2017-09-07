@@ -1,0 +1,56 @@
+﻿@model Kyo.Entidades.Cinturon
+
+@{
+    ViewBag.Title = "Detalles de Dojo " + @Model.Nombre;
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+<h3 class="label-danger">Esta seguro de eliminar este Dojo?</h3>
+
+<div class="container">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColorCodigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColorCodigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nivel)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+        </div>
+    }
+
+    <div class="pull-right">
+        <a href="@Url.Action("Index", "Dojo")" class="btn btn-default">
+            Volver al listado
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>

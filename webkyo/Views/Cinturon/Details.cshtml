@@ -1,0 +1,54 @@
+﻿@model Kyo.Entidades.Cinturon
+
+@{
+    ViewBag.Title = "Detalles de Cinturon " + @Model.Nombre;
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+<div class="container">
+    <h4>Cinturon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.ColorCodigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColorCodigo)
+        </dd>
+
+        <dt>
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Nivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nivel)
+        </dd>
+    </dl>
+    <div class="pull-right">
+        <a href="@Url.Action("Index", "Cinturon")" class="btn btn-default">
+            Volver al listado
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="pull-right">
+        <a href="@Url.Action("Editar", "Cinturon", new { id = Model.Id }))" class="btn btn-success">
+            Editar
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>

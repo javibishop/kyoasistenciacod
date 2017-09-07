@@ -1,0 +1,46 @@
+﻿@model Kyo.Dojo
+
+@{
+    ViewBag.Title = "Detalles de Dojo " + @Model.Nombre;
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+<h3 class="label-danger">Esta seguro de eliminar este Dojo?</h3>
+<div class="container">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+    </dl>
+    <div class="pull-right">
+        <a href="@Url.Action("Index", "Dojo")" class="btn btn-default">
+            Volver al listado
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="pull-right">
+        <a href="@Url.Action("Editar", "Dojo", new { id = Model.Id }))" class="btn btn-success">
+            Editar
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>

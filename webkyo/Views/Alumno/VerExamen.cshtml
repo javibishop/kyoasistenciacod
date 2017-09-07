@@ -1,0 +1,49 @@
+﻿@model webkyo.Models.ExamenVM
+
+@{
+    ViewBag.Title = "Examenes de " + Model.Alumno;
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+<div class="col-md-12 table-responsive">
+    <table id="mytable" class="table table-bordred table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Fecha
+                </th>
+                <th>
+                    Cinturon Anterior
+                </th>
+                <th>
+                    Cinturon Actual
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Examenes)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CinturonActual.ColorCodigo + " " + item.CinturonActual.Nivel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CinturonProximo.ColorCodigo + " " + item.CinturonProximo.Nivel)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pull-right">
+        <a href="@Url.Action("Index", "Alumno")" class="btn btn-default">
+            Volver al listado
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>

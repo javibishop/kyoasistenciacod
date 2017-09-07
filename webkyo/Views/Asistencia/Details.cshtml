@@ -1,0 +1,46 @@
+﻿@model Kyo.Entidades.Asistencia
+
+@{
+    ViewBag.Title = "Detalles de Asistencia de " + @Model.Alumno.Nombre + " " + @Model.Alumno.Apellido;
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+
+<div class="container">
+    <h4>Asistencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comentario)
+        </dd>
+    </dl>
+    <div class="pull-right">
+        <a href="@Url.Action("Index", "Asistencia")" class="btn btn-default">
+            Volver al listado
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="pull-right">
+        <a href="@Url.Action("Editar", "Asistencia", new { id = Model.Id }))" class="btn btn-success">
+            Editar
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>

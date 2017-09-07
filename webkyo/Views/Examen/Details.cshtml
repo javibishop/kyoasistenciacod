@@ -1,0 +1,54 @@
+﻿@model Kyo.Entidades.Examen
+
+@{
+    ViewBag.Title = "Detalles de Examen " + @Model.Alumno.Nombre + " " + @Model.Alumno.Apellido;
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+<div class="container">
+    <h4>Examen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comentario)
+        </dd>
+
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.Aprobado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aprobado)
+        </dd>
+    </dl>
+    <div class="pull-right">
+        <a href="@Url.Action("Index", "Examen")" class="btn btn-default">
+            Volver al listado
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="pull-right">
+        <a href="@Url.Action("Editar", "Examen", new { id = Model.Id }))" class="btn btn-success">
+            Editar
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
