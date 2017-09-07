@@ -121,6 +121,7 @@ namespace webkyo.Controllers
 //		[ValidateAntiForgeryToken]
 		public ActionResult GuardarAsistencia(List<int> ids)
 		{
+            string xx = string.Empty;
             try
             {
                 var foger = Request.Headers["__RequestVerificationToken"];
@@ -131,7 +132,7 @@ namespace webkyo.Controllers
                     : null;
 
                 AntiForgery.Validate(cookieValue, foger);
-
+                xx = "paso vali foger";
                 if (ids.Count > 0)
                 {
                     var alumnosasistir = db.Alumnos.Where(a => ids.Contains(a.Id));
@@ -142,10 +143,12 @@ namespace webkyo.Controllers
                         asistencia.Fecha = DateTime.Now;
                         this.SetAuditoria(asistencia);
                         db.Asistencias.Add(asistencia);
+                        xx += "  agrego lista a aistencia";
                     }
 
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    xx += "  guardo cambios";
+                    return Content("<script language='javascript' type='text/javascript'>alert('"+xx+"');</script>");
                 }
 
                 return View();

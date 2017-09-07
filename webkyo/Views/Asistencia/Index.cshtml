@@ -84,6 +84,9 @@
                     contentType: "application/json; charset=utf-8"
                 }).done(function () {
                     alert('Added');
+                }).error(function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
                 });
             }
         }
