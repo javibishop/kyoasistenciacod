@@ -18,10 +18,31 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
+                @Html.LabelFor(model => model.Alumno, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.AlumnoId, (List<SelectListItem>)ViewBag.Alumnos, "-- Seleccionar Alumno --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AlumnoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CinturonActual, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CinturonActualId, (List<SelectListItem>)ViewBag.CinturonDesde, "-- Cinturon Actual --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CinturonActualId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CinturonActual, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CinturonProximoId, (List<SelectListItem>)ViewBag.CinturonHasta, "-- Cinturon Proximo --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CinturonProximoId, "", new { @class = "text-danger" })
                 </div>
             </div>
 

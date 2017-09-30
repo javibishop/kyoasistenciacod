@@ -124,14 +124,14 @@ namespace webkyo.Controllers
             string xx = string.Empty;
             try
             {
-                var foger = Request.Headers["__RequestVerificationToken"];
-                var antiForgeryCookie = Request.Cookies[AntiForgeryConfig.CookieName];
+                //var foger = Request.Headers["__RequestVerificationToken"];
+                //var antiForgeryCookie = Request.Cookies[AntiForgeryConfig.CookieName];
 
-                var cookieValue = antiForgeryCookie != null
-                    ? antiForgeryCookie.Value
-                    : null;
+                //var cookieValue = antiForgeryCookie != null
+                //    ? antiForgeryCookie.Value
+                //    : null;
 
-                AntiForgery.Validate(cookieValue, foger);
+                //AntiForgery.Validate(cookieValue, foger);
                 xx = "paso vali foger";
                 if (ids.Count > 0)
                 {
@@ -148,6 +148,7 @@ namespace webkyo.Controllers
 
                     db.SaveChanges();
                     xx += "  guardo cambios";
+
                     return Content("<script language='javascript' type='text/javascript'>alert('"+xx+"');</script>");
                 }
 

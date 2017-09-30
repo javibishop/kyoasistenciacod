@@ -186,11 +186,13 @@ namespace webkyo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Edad,Sexo,FechaAlta,FechaModificacion,UsuarioAltaId,UsuarioModificacionId")] Alumno alumno)
+		public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Edad,Sexo,DojoId,CinturonId,FechaAlta,FechaModificacion,UsuarioAltaId,UsuarioModificacionId")] Alumno alumno)
         {
             if (ModelState.IsValid)
             {
 				this.SetAuditoria(alumno);
+                alumno.Dojo = db.Dojos.First(d => d.Id == alumno.DojoId);
+				alumno.Cinturon = db.Cinturones.First(d => d.Id == alumno.CinturonId);
                 db.Entry(alumno).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

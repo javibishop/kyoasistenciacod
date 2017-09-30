@@ -98,7 +98,7 @@ namespace webkyo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,ColorCodigo,Nivel")] Cinturon cinturon)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,ColorCodigo,Nivel,FechaAlta,FechaModificacion,UsuarioAltaId,UsuarioModificacionId")] Cinturon cinturon)
         {
             if (ModelState.IsValid)
             {
