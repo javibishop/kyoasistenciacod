@@ -43,6 +43,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
+                    var sexo = item.Sexo == 1 ? "F" : "M";
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nombre)
@@ -57,7 +58,7 @@
                             @Html.DisplayFor(modelItem => item.Edad)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Sexo)
+                            @Html.DisplayFor(modelItem => sexo)
                         </td>
                         <td><p data-placement="top" data-toggle="tooltip" title="VerAsistencia"><a class="btn btn-info btn-xs" href="@Url.Action("VerAsistencia", "Alumno", new { id = item.Id})"><span class="glyphicon glyphicon-th-list"></span></a></p></td>
                         <td><p data-placement="top" data-toggle="tooltip" title="VerExamen"><a class="btn btn-info btn-xs" href="@Url.Action("VerExamen", "Alumno", new { id = item.Id})"><span class="glyphicon glyphicon-list-alt"></span></a></p></td>

@@ -21,6 +21,10 @@ namespace webkyo
 				"~/Scripts/knockout-{version}.js",
 				"~/Scripts/knockout.validation.js"));
 
+            	bundles.Add(new ScriptBundle("~/bundles/charts").Include(
+				"~/Scripts/Chart.js"));
+
+
 			bundles.Add(new ScriptBundle("~/bundles/app").Include(
 				"~/Scripts/sammy-{version}.js",
 				"~/Scripts/app/common.js",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kyo.Entidades
@@ -18,10 +19,14 @@ namespace Kyo.Entidades
 		
         public int CinturonActualId { get; set; }
 		[ForeignKey("CinturonActualId")]
+
+         [Display(Name = "Cinturon Actual")]
 		public Cinturon CinturonActual { get; set; }
         
         public int CinturonProximoId { get; set; }
         [ForeignKey("CinturonProximoId")]
+
+        [Display(Name = "Cinturon Proximo")]
         public Cinturon CinturonProximo { get; set; }
 	}
 }

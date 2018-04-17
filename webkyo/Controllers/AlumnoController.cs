@@ -155,8 +155,12 @@ namespace webkyo.Controllers
 			ExamenVM examenVM = new ExamenVM();
 
 			examenVM.Alumno = alumno.Nombre + alumno.Apellido;
+            var cintos = db.Cinturones.ToList();
+
 			foreach (Examen examen in examenes)
 			{
+                examen.CinturonActual = cintos.First(d => d.Id == examen.CinturonActualId);
+                examen.CinturonProximo = cintos.First(d => d.Id == examen.CinturonProximoId);
 				examenVM.Examenes.Add(examen);
 			}
 			return View("VerExamen", examenVM);

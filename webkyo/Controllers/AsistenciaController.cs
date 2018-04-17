@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.Web.Helpers;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace webkyo.Controllers
 {
@@ -60,6 +61,21 @@ namespace webkyo.Controllers
         // GET: Asistencias/Create
         public ActionResult Create()
         {
+            return View();
+        }
+
+        public ActionResult Graph()
+        {
+            List<AsistenciaGrafico> dataPoints = new List<AsistenciaGrafico>{
+				new AsistenciaGrafico(10, 22,3),
+				new AsistenciaGrafico(20, 36,3),
+				new AsistenciaGrafico(30, 42,3),
+				new AsistenciaGrafico(40, 51,3),
+				new AsistenciaGrafico(50, 46,3),
+			};
+ 
+			ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
             return View();
         }
 

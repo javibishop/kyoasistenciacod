@@ -247,6 +247,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AsistenciaGrafico.cs" />
     <Compile Include="Models\ExamenVM.cs" />
     <Compile Include="Models\AsistenciaVM.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -306,6 +307,7 @@
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.min.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.js" />
@@ -463,6 +465,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Alumno\VerAsistencia.cshtml" />
     <Content Include="Views\Alumno\VerExamen.cshtml" />
+    <Content Include="Views\Asistencia\Graph.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

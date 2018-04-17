@@ -26,15 +26,17 @@
         <tbody>
             @foreach (var item in Model.Examenes)
             {
+                var cintoAnterior = item.CinturonActual.ColorCodigo + " " + item.CinturonActual.Nivel;
+                var cintoActual = item.CinturonActual.ColorCodigo + " " + item.CinturonActual.Nivel;
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Fecha)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CinturonActual.ColorCodigo + " " + item.CinturonActual.Nivel)
+                        @Html.DisplayFor(modelItem => cintoAnterior)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CinturonProximo.ColorCodigo + " " + item.CinturonProximo.Nivel)
+                        @Html.DisplayFor(modelItem => cintoActual)
                     </td>
                 </tr>
             }
