@@ -1,0 +1,127 @@
+﻿@model webkyo.Models.AsistenciaGrafico
+
+@{
+    ViewBag.Title = "Detalles de Asistencia de ";
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+    <button id="generar" onclick="generar();"></button>
+</div>
+
+
+<div style="width: 75%">
+    <canvas id="myChart"></canvas>
+</div>
+
+
+<script>
+
+    var dataPoints = [];
+
+    function getDataPointsFromCSV(csv) {
+        var dataPoints = csvLines = points = [];
+        csvLines = csv.split(/[\r?\n|\r|\n]+/);
+
+        for (var i = 0; i < csvLines.length; i++)
+            if (csvLines[i].length > 0) {
+                points = csvLines[i].split(",");
+                dataPoints.push({
+                    x: parseFloat(points[0]),
+                    y: parseFloat(points[1])
+                });
+            }
+        return dataPoints;
+    }
+
+    function generar() {
+        $.get("/asistencia/generargrafico?anio=2017", function (data) {
+            var data1 = [];
+            var data2 = [];
+            var ColorFondo1 = [];
+            var ColorFondo2 = [];
+            var ColorBorde1 = [];
+            var ColorBorde2 = [];
+            $.each(data.Detalle, function (index, value) {
+                data1.push(value.DiasAsistio);
+                data2.push(value.DiasMes);
+                ColorFondo1.push(data.ColorFondo1);
+                ColorFondo2.push(data.ColorFondo2);
+                ColorBorde1.push(data.ColorBorde1);
+                ColorBorde2.push(data.ColorBorde2);
+                });
+           
+
+            var ctx = document.getElementById("myChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.Meses,
+                    datasets: [{
+                        label: 'Asistencia en el mes',
+                        data: data1, /*datos color 1*/
+                        backgroundColor: ColorFondo1,
+                        borderColor: ColorBorde1, 
+                        borderWidth: 2
+                    },
+                      {
+                          label: 'Clases en el mes',
+                          data: data2,
+                          backgroundColor: ColorFondo2,
+                          borderColor: ColorBorde2,
+                          borderWidth: 2
+                      }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            stacked: true,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            stacked: true,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+
+                    }
+                }
+            });
+            myChart.render();
+
+            //var chart = new CanvasJS.Chart("chartContainer", {
+            //    animationEnabled: true,
+            //    theme: "theme2",//theme1
+            //    title: {
+            //        text: "CanvasJS Charts in ASP.Net MVC using CSV & AJAX",
+            //    },
+            //    data: [{
+            //        //type: "line",
+            //        type: "column",
+            //        dataPoints: getDataPointsFromCSV(data)
+            //    }]
+            //});
+
+            
+
+            
+
+        });
+    }
+
+    $(document).ready(function () {
+
+        
+
+        
+
+        
+
+    });
+
+   
+</script>
