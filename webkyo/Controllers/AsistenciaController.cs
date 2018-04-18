@@ -66,18 +66,34 @@ namespace webkyo.Controllers
 
         public ActionResult Graph()
         {
-            List<AsistenciaGrafico> dataPoints = new List<AsistenciaGrafico>{
-				new AsistenciaGrafico(10, 22,3),
-				new AsistenciaGrafico(20, 36,3),
-				new AsistenciaGrafico(30, 42,3),
-				new AsistenciaGrafico(40, 51,3),
-				new AsistenciaGrafico(50, 46,3),
-			};
- 
-			ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            
 
             return View();
         }
+
+        //[ValidateAntiForgeryToken]
+         [HttpGet]
+        public ActionResult generargrafico(string anio)
+        {
+            AsistenciaGrafico graficoData = new Models.AsistenciaGrafico();
+
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+            graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 10, DiasMes = 12 });
+
+            //return View("Graph",graficoData);
+            return Json(graficoData, JsonRequestBehavior.AllowGet); 
+        }
+
 
         // POST: Asistencias/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
