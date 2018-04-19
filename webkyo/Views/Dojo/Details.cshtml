@@ -1,4 +1,4 @@
-﻿@model Kyo.Dojo
+﻿@model Kyo.Entidades.Dojo
 
 @{
     ViewBag.Title = "Detalles de Dojo " + @Model.Nombre;
@@ -28,6 +28,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Direccion)
+        </dd>
+        <dt class="col-lg-4">
+            <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+            @Html.DisplayNameFor(model => model.DiasClasesSemanales)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiasClasesSemanales)
         </dd>
 
     </dl>

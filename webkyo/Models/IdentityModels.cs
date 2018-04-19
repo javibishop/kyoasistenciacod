@@ -115,7 +115,7 @@ namespace webkyo.Models
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 		}
 
-		public System.Data.Entity.DbSet<Kyo.Dojo> Dojos { get; set; }
+		public System.Data.Entity.DbSet<Kyo.Entidades.Dojo> Dojos { get; set; }
 
 		public System.Data.Entity.DbSet<Kyo.Entidades.Cinturon> Cinturones { get; set; }
 

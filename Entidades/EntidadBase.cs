@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Kyo
+namespace Kyo.Entidades
 {
     public class EntidadBase
     {

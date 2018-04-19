@@ -7,28 +7,28 @@ namespace webkyo.Models
     [DataContract]
     public class AsistenciaGrafico
     {
-        //DataContract for Serializing Data - required to serve in JSON format
-
         public AsistenciaGrafico()
         {
-            //Meses.AddRange("1","2","3","4","5","6","7","8","9","10","11","12"));
-            Meses.Add("1");
-            Meses.Add("2");
-            Meses.Add("3");
-            Meses.Add("4");
-            Meses.Add("5");
-            Meses.Add("6");
-            Meses.Add("7");
-            Meses.Add("8");
-            Meses.Add("9");
-            Meses.Add("10");
-            Meses.Add("11");
-            Meses.Add("12");
+            Meses.Add("Enero");
+            Meses.Add("Febrero");
+            Meses.Add("Marzo");
+            Meses.Add("Abril");
+            Meses.Add("Mayo");
+            Meses.Add("Junio");
+            Meses.Add("Julio");
+            Meses.Add("Agosto");
+            Meses.Add("Septiembre");
+            Meses.Add("Octubre");
+            Meses.Add("Noviembre");
+            Meses.Add("Diciembre");
         }
 
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "Meses")]
         public List<string> Meses = new List<string>();
+
+        [DataMember(Name = "Anio")]
+        public int Anio = 0;
 
         [DataMember(Name = "ColorBorde1")]
         public string ColorBorde1 = "#3e95cd";

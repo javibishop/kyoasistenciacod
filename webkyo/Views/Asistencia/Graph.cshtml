@@ -1,41 +1,40 @@
 ﻿@model webkyo.Models.AsistenciaGrafico
 
 @{
-    ViewBag.Title = "Detalles de Asistencia de ";
 }
 
 <div class="page-header">
     <h3>@ViewBag.Title</h3>
-    <button id="generar" onclick="generar();"></button>
 </div>
 
+
+<div class="form-inline">
+    <div class="col-md-10">
+        @Html.DropDownListFor(model => model.Anio, (List<SelectListItem>)ViewBag.Anios, "-- Seleccionar Año --", new { @id="aniocombo", @class = "form-control" })
+        <button id="generar" onclick="generar();">Graficar</button>
+    </div>
+</div>
 
 <div style="width: 75%">
     <canvas id="myChart"></canvas>
 </div>
 
-
 <script>
-
-    var dataPoints = [];
-
-    function getDataPointsFromCSV(csv) {
-        var dataPoints = csvLines = points = [];
-        csvLines = csv.split(/[\r?\n|\r|\n]+/);
-
-        for (var i = 0; i < csvLines.length; i++)
-            if (csvLines[i].length > 0) {
-                points = csvLines[i].split(",");
-                dataPoints.push({
-                    x: parseFloat(points[0]),
-                    y: parseFloat(points[1])
-                });
-            }
-        return dataPoints;
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
     function generar() {
-        $.get("/asistencia/generargrafico?anio=2017", function (data) {
+        var anio = $("#aniocombo").val();
+        var alumno = getParameterByName('alumnoid');
+
+        $.get("/asistencia/generargrafico?anio=" + anio + "&alumnoId=" + alumno, function (data) {
             var data1 = [];
             var data2 = [];
             var ColorFondo1 = [];
@@ -74,54 +73,42 @@
                     ]
                 },
                 options: {
+                    title: {
+                        display: true,
+                        text: 'Asistencia a clase VS Dias de clase en el Mes'
+                    },
                     scales: {
-                        yAxes: [{
-                            stacked: true,
+                        xAxes: [{
                             ticks: {
                                 beginAtZero: true
                             }
                         }],
-                        xAxes: [{
-                            stacked: true,
+                        yAxes: [{
                             ticks: {
                                 beginAtZero: true
                             }
                         }]
-
                     }
                 }
+                //options: {
+                //    scales: {
+                //        yAxes: [{
+                //            stacked: true,
+                //            ticks: {
+                //                beginAtZero: true
+                //            }
+                //        }],
+                //        xAxes: [{
+                //            stacked: true,
+                //            ticks: {
+                //                beginAtZero: true
+                //            }
+                //        }]
+
+                //    }
+                //}
             });
             myChart.render();
-
-            //var chart = new CanvasJS.Chart("chartContainer", {
-            //    animationEnabled: true,
-            //    theme: "theme2",//theme1
-            //    title: {
-            //        text: "CanvasJS Charts in ASP.Net MVC using CSV & AJAX",
-            //    },
-            //    data: [{
-            //        //type: "line",
-            //        type: "column",
-            //        dataPoints: getDataPointsFromCSV(data)
-            //    }]
-            //});
-
-            
-
-            
-
         });
     }
-
-    $(document).ready(function () {
-
-        
-
-        
-
-        
-
-    });
-
-   
 </script>

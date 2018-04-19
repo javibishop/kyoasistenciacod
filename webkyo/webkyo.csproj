@@ -217,33 +217,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201709011544386_xx.cs" />
-    <Compile Include="Migrations\201709011544386_xx.Designer.cs">
-      <DependentUpon>201709011544386_xx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709011550247_xx2.cs" />
-    <Compile Include="Migrations\201709011550247_xx2.Designer.cs">
-      <DependentUpon>201709011550247_xx2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709071240277_vv.cs" />
-    <Compile Include="Migrations\201709071240277_vv.Designer.cs">
-      <DependentUpon>201709071240277_vv.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709071505273_xcs.cs" />
-    <Compile Include="Migrations\201709071505273_xcs.Designer.cs">
-      <DependentUpon>201709071505273_xcs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709071525329_xcsa.cs" />
-    <Compile Include="Migrations\201709071525329_xcsa.Designer.cs">
-      <DependentUpon>201709071525329_xcsa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709071538328_xcsa1.cs" />
-    <Compile Include="Migrations\201709071538328_xcsa1.Designer.cs">
-      <DependentUpon>201709071538328_xcsa1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709301640409_xcv.cs" />
-    <Compile Include="Migrations\201709301640409_xcv.Designer.cs">
-      <DependentUpon>201709301640409_xcv.cs</DependentUpon>
+    <Compile Include="Migrations\201804182327423_xxxc.cs" />
+    <Compile Include="Migrations\201804182327423_xxxc.Designer.cs">
+      <DependentUpon>201804182327423_xxxc.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -481,26 +457,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709011544386_xx.resx">
-      <DependentUpon>201709011544386_xx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709011550247_xx2.resx">
-      <DependentUpon>201709011550247_xx2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709071240277_vv.resx">
-      <DependentUpon>201709071240277_vv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709071505273_xcs.resx">
-      <DependentUpon>201709071505273_xcs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709071525329_xcsa.resx">
-      <DependentUpon>201709071525329_xcsa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709071538328_xcsa1.resx">
-      <DependentUpon>201709071538328_xcsa1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709301640409_xcv.resx">
-      <DependentUpon>201709301640409_xcv.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804182327423_xxxc.resx">
+      <DependentUpon>201804182327423_xxxc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

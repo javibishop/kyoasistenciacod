@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Kyo;
+using Kyo.Entidades;
 using webkyo.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Infrastructure;
@@ -64,7 +64,7 @@ namespace webkyo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Direccion")] Dojo dojo)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Direccion,DiasClasesSemanales")] Dojo dojo)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace webkyo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Id,Nombre,Direccion,FechaAlta,FechaModificacion,UsuarioAltaId,UsuarioModificacionId")] Dojo dojo)
+		public ActionResult Edit([Bind(Include = "Id,Nombre,Direccion,DiasClasesSemanales,FechaAlta,FechaModificacion,UsuarioAltaId,UsuarioModificacionId")] Dojo dojo)
         {
             if (ModelState.IsValid)
             {

@@ -131,7 +131,7 @@ namespace webkyo.Controllers
 			var asistencias = db.Asistencias.Where(a => a.AlumnoId == id);
 			AsistenciaVM asistenciaVM = new AsistenciaVM();
 
-			asistenciaVM.Alumno = alumno.Nombre + alumno.Apellido;
+			asistenciaVM.Alumno = alumno.Nombre + " " + alumno.Apellido;
 			foreach (Asistencia asistencia in asistencias)
 			{
 				asistenciaVM.Asistencias.Add(asistencia);
