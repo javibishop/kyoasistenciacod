@@ -82,6 +82,13 @@ namespace webkyo.Controllers
 			{
 				return View(model);
 			}
+            //ResetPasswordViewModel  mod = new Models.ResetPasswordViewModel ();
+            //mod.Email = "javibishop@gmail.com";
+            //mod.Code = "e1200737-25ec-4f6f-8cec-e1ac2fe114b9";
+            //mod.Password = "_javier2_";
+            //mod.ConfirmPassword = "_javier2_";
+
+            //var res = this.ResetPassword(mod);
 
 			// This doesn't count login failures towards account lockout
 			// To enable password failures to trigger account lockout, change to shouldLockout: true

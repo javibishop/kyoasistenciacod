@@ -1,16 +1,14 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System;
-using System.Data.Entity.Infrastructure;
 
 namespace webkyo.Models
 {
-	// New derived classes
-	public class UserRole : IdentityUserRole<int>
+    // New derived classes
+    public class UserRole : IdentityUserRole<int> 
 	{
 	}
 

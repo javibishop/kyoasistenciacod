@@ -21,7 +21,7 @@ namespace webkyo.Controllers
         // GET: Alumnoes
         public ActionResult Index()
         {
-            return View(db.Alumnos.ToList());
+            return View(db.Alumnos.ToList().OrderBy(a=> a.Apellido));
         }
 
 		private void GetDojos(int id)
@@ -38,7 +38,7 @@ namespace webkyo.Controllers
 
 		private void GetCinturones(int id)
 		{
-			var cinturones = db.Cinturones.Select(x =>
+			var cinturones = db.Cinturones.OrderBy(c => c.Nombre).Select(x =>
 								new SelectListItem
 								{
 									Value = x.Id.ToString(),
@@ -100,7 +100,7 @@ namespace webkyo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Telefono,Edad,Sexo,DojoId,CinturonId")] Alumno alumno)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Apellido,Telefono,Email,Edad,Sexo,DojoId,CinturonId")] Alumno alumno)
         {
             if (ModelState.IsValid)
             {
@@ -190,7 +190,7 @@ namespace webkyo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Edad,Sexo,DojoId,CinturonId,FechaAlta,FechaModificacion,UsuarioAltaId,UsuarioModificacionId")] Alumno alumno)
+		public ActionResult Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Email,Edad,Sexo,DojoId,CinturonId,FechaAlta,FechaModificacion,UsuarioAltaId,UsuarioModificacionId")] Alumno alumno)
         {
             if (ModelState.IsValid)
             {

@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 
-namespace webkyo.Controllers
+namespace webkyo.Controllers 
 {
     [Authorize(Roles="Admin")]
     public class DojoController : Controller
