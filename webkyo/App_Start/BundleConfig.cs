@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace webkyo
 {
-	public class BundleConfig
+    public class BundleConfig
 	{
 		// For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-				"~/Scripts/jquery-{version}.js"));
+				"~/Scripts/jquery-{version}.js", "~/Scripts/jquery-ui-{version}.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
 				"~/Scripts/jquery.unobtrusive*",
@@ -24,8 +21,10 @@ namespace webkyo
             	bundles.Add(new ScriptBundle("~/bundles/charts").Include(
 				"~/Scripts/Chart.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
+                "~/Scripts/jquery.datetimepicker.js"));
 
-			bundles.Add(new ScriptBundle("~/bundles/app").Include(
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
 				"~/Scripts/sammy-{version}.js",
 				"~/Scripts/app/common.js",
 				"~/Scripts/app/app.datamodel.js",
@@ -44,7 +43,9 @@ namespace webkyo
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				 "~/Content/bootstrap.css",
-				 "~/Content/Site.css"));
+				 "~/Content/Site.css",
+                 "~/Content/jquery.datetimepicker.css",
+                 "~/Content/jquery-ui.min.css"));
 
 			bundles.Add(new StyleBundle("~/Content/Bootstrap-Select/css").Include(
 				 "~/Content/bootstrap-select.min.css"));

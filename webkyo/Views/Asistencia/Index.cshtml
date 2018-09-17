@@ -1,7 +1,13 @@
 ﻿@model IEnumerable<Kyo.Entidades.Alumno>
-
+@Scripts.Render("~/bundles/datepicker")
 @{
     ViewBag.Title = "Asistencia de Alumnos";
+
+    List<SelectListItem> turnos = new List<SelectListItem>();
+    turnos.Add(new SelectListItem { Text = "Mañana", Value = "0" });
+    turnos.Add(new SelectListItem { Text = "Tarde", Value = "1" });
+    turnos.Add(new SelectListItem { Text = "Noche", Value = "2" });
+    DateTime fecha = DateTime.Now;
 }
 
 <div class="page-header">
@@ -9,86 +15,113 @@
 </div>
 
 @Html.AntiForgeryToken()
-<div class="pull-right">
-    <a href="" onclick="obtenerIds()" class="btn btn-info">
-        Marcar Asistencia
-        <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
-    </a>
+<div class="form-group">
+    <div class="col-sm-4">
+        @Html.DropDownList("turnos", turnos, "-- Seleccionar Turno --", new { @class = "form-control" })
     </div>
-    <div class="col-md-12 table-responsive">
-        <table id="mytable" class="table table-bordred table-striped">
-            <thead>
-                <tr>
+    <div class="col-sm-4">
+        @Html.TextBox("datepicker", String.Format("{0:d}", fecha.ToShortDateString()), new { @class = "form-control datepicker", @id = "datepicker" })
+    </div>
+    <div class="col-sm-4">
+        <a href="" onclick="obtenerIds()" class="btn btn-info">
+            Marcar Asistencia
+            <span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
+<div class="col-md-12 table-responsive">
+    <table id="mytable" class="table table-bordred table-striped">
+        <thead>
+            <tr>
 
-                    <th><input type="checkbox" class="checkthis" /></th>
-                    <th hidden="hidden"></th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Nombre)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Apellido)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Telefono)
-                    </th>
-                    <th style="width:5px;"></th>
-                    <th style="width:5px;"></th>
-                    <th style="width:5px;"></th>
+                <th><input type="checkbox" class="checkthis" /></th>
+                <th hidden="hidden"></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th style="width:5px;"></th>
+                <th style="width:5px;"></th>
+                <th style="width:5px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td hidden="hidden">
+                        @Html.DisplayFor(modelItem => item.Id, new { htmlAttributes = new { @name = "Id" } })
+                    </td>
+                    <td>
+                        <input type="checkbox" class="checkthis" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td><p data-placement="top" data-toggle="tooltip" title="Detalle"><a class="btn btn-success btn-xs" href="@Url.Action("Details", "Asistencia", new { id = item.Id })"><span class="glyphicon glyphicon-search"></span></a></p></td>
+                    <td><p data-placement="top" data-toggle="tooltip" title="Modificar"><a class="btn btn-primary btn-xs" href="@Url.Action("Edit", "Asistencia", new { id = item.Id })"><span class="glyphicon glyphicon-pencil"></span></a></p></td>
+                    <td><p data-placement="top" data-toggle="tooltip" title="Borrar"><button class="btn btn-danger btn-xs" data-title="Delete" href="@Url.Action("Delete", "Asistencia", new { id = item.Id })"><span class="glyphicon glyphicon-trash"></span></button></p></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td hidden="hidden">
-                            @Html.DisplayFor(modelItem => item.Id, new { htmlAttributes = new { @name = "Id" } })
-                        </td>
-                        <td>
-                            <input type="checkbox" class="checkthis" />
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Apellido)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Telefono)
-                        </td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Detalle"><a class="btn btn-success btn-xs" href="@Url.Action("Details", "Asistencia", new { id = item.Id })"><span class="glyphicon glyphicon-search"></span></a></p></td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Modificar"><a class="btn btn-primary btn-xs" href="@Url.Action("Edit", "Asistencia", new { id = item.Id })"><span class="glyphicon glyphicon-pencil"></span></a></p></td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Borrar"><button class="btn btn-danger btn-xs" data-title="Delete" href="@Url.Action("Delete", "Asistencia", new { id = item.Id })"><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <script>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
         function obtenerIds() {
             var idAs = [];
-            $('#mytable tr').each(function (i, row) {
-                $("#mytable tr:has(:checkbox:checked) td:nth-child(" + i + ")").each(function () {
-                    idAs.push(parseInt($(this).text()));
+            /*$('#mytable tr').each(function (i, row) {
+                $("#mytable tr:has(:checkbox:checked) td:nth-child(1)").each(function () {
+                    idAs.push(parseInt($(this).text().trim()));
                 });
-            });
+            });*/
 
+            var table = document.getElementById('mytable');
+            var checkboxes = table.querySelectorAll('input[type=checkbox]');
+            for (var i = 1; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    idAs.push(table.rows[i].cells[0].innerText.trim());
+                }
+            }
+                
             var token = $('[name=__RequestVerificationToken]').val();
-            var id = JSON.stringify(idAs);
+            var turno= $('[name=turnos]').val();;
+            var fecha = $('[name=datepicker]').val();;
+            var data = { ids: idAs, turno: turno, fecha: fecha };
             if (idAs.length > 0) {
                 $.ajax({
                     url: '@Url.Action("GuardarAsistencia", "Asistencia")',
                     headers: { '__RequestVerificationToken': token },
-                    data: id,
+                    data: JSON.stringify(data),
                     type: "POST",
+                    async: false,
                     dataType: 'json',
                     contentType: "application/json; charset=utf-8"
-                }).done(function () {
-                    alert('Added');
-                }).error(function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                });
+                }).success(function (response) {
+                    alert(response);
+                    if (response.success) {
+                        alert(response);
+                    } else {
+                        alert("not success");
+                    }
+                }).fail(function () {
+                    alert("fail");
+                })
             }
         }
 
-    </script>
+    $(document).ready(function () {
+        $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+
+</script>
