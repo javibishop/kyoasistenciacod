@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using System.Web.Helpers;
 
 namespace webkyo.Controllers
 {
@@ -24,7 +25,7 @@ namespace webkyo.Controllers
         {
             ViewBag.fecha = DateTime.Now;
 
-            return View(db.Alumnos.ToList());
+            return View(db.Alumnos.ToList().OrderBy(a => a.Apellido));
         }
 
         private void GetAnios()
@@ -170,23 +171,20 @@ namespace webkyo.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //		[ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult GuardarAsistencia(Datos datos)
         {
-            //string xx = string.Empty;
             try
             {
                 //var foger = Request.Headers["__RequestVerificationToken"];
                 //var antiForgeryCookie = Request.Cookies[AntiForgeryConfig.CookieName];
-
-                //var cookieValue = antiForgeryCookie != null
-                //    ? antiForgeryCookie.Value
-                //    : null;
-
+                //var cookieValue = antiForgeryCookie != null ? antiForgeryCookie.Value : null;
                 //AntiForgery.Validate(cookieValue, foger);
-                //xx = "paso vali foger";
+
                 if (datos.ids.Count > 0)
                 {
+                    var fechaSplit = datos.fechaString.Split('/');
+                    var fecha = new DateTime(int.Parse(fechaSplit[2].Trim()), int.Parse(fechaSplit[0].Trim()), int.Parse(fechaSplit[1].Trim()));
                     var alumnosasistir = db.Alumnos.Where(a => datos.ids.Contains(a.Id));
                     foreach (Alumno alumno in alumnosasistir)
                     {
@@ -195,48 +193,55 @@ namespace webkyo.Controllers
                         switch (datos.turno)
                         {
                             case "0":
-                                asistencia.Fecha = datos.fecha.AddHours(8);
+                                asistencia.Fecha = fecha.AddHours(8); //8 de la maniana
                                 break;
                             case "1":
-                                asistencia.Fecha = datos.fecha.AddHours(15);
+                                asistencia.Fecha = fecha.AddHours(15); //3 de la tarde
                                 break;
                             case "2":
-                                asistencia.Fecha = datos.fecha.AddHours(20);
+                                asistencia.Fecha = fecha.AddHours(20); //8 de la noche.
                                 break;
                         }
-                        
-                        this.SetAuditoria(asistencia);
-                        db.Asistencias.Add(asistencia);
-                        //xx += "  agrego lista a aistencia";
+
+                        if (!this.ValidarExisteAsistencia(alumno.Id, asistencia.Fecha))
+                        {
+                            this.SetAuditoria(asistencia);
+                            db.Asistencias.Add(asistencia);
+                        }
                     }
 
                     db.SaveChanges();
-                    //xx += "  guardo cambios";
-
                     //return Content("<script language='javascript' type='text/javascript'>alert('" + xx + "');</script>");
                     return Json(new
                     {
-                        Success = true,
-                        Status = "OK",
-                        Message = "guardo con exito"
+                        success = true,
+                        status = "OK",
+                        responseText = "Asistencias guardadas con exito."
                     });
                 }
                 else
                     return Json(new
                     {
-                        Success = true,
-                        Status = "OK",
-                        Message = "guardo con exito"
+                        success = true,
+                        status = "OK",
+                        responseText = "No hay datos para guardar."
                     });
             }
             catch (Exception e)
             {
                 return Json(new
                 {
-                    Status = "Error",
-                    Message = "error al guardar"
+                    success = false,
+                    status = "Error",
+                    responseText = "Error al guardar la asistencia - " + e.Message + e.InnerException.Message
                 });
             }
+        }
+
+        private bool ValidarExisteAsistencia(int alumnoId, DateTime fecha)
+        {
+            var asistencia = db.Asistencias.Where(a => a.AlumnoId == alumnoId && a.Fecha == fecha).FirstOrDefault();
+            return asistencia != null ? true : false;
         }
 
         // GET: Asistencias/Delete/5
@@ -298,6 +303,7 @@ namespace webkyo.Controllers
     {
         public List<int> ids { get; set; }
         public string turno { get; set; }
+        public string fechaString { get; set; }
         public DateTime fecha { get; set; }
     }
 }
