@@ -9,26 +9,34 @@ namespace webkyo.Models
     {
         public AsistenciaGrafico()
         {
-            Meses.Add("Enero");
-            Meses.Add("Febrero");
-            Meses.Add("Marzo");
-            Meses.Add("Abril");
-            Meses.Add("Mayo");
-            Meses.Add("Junio");
-            Meses.Add("Julio");
-            Meses.Add("Agosto");
-            Meses.Add("Septiembre");
-            Meses.Add("Octubre");
-            Meses.Add("Noviembre");
-            Meses.Add("Diciembre");
+            
+        }
+
+        public void InitMeses()
+        {
+            Texto.Add("Enero");
+            Texto.Add("Febrero");
+            Texto.Add("Marzo");
+            Texto.Add("Abril");
+            Texto.Add("Mayo");
+            Texto.Add("Junio");
+            Texto.Add("Julio");
+            Texto.Add("Agosto");
+            Texto.Add("Septiembre");
+            Texto.Add("Octubre");
+            Texto.Add("Noviembre");
+            Texto.Add("Diciembre");
         }
 
         //Explicitly setting the name to be used while serializing to JSON.
-        [DataMember(Name = "Meses")]
-        public List<string> Meses = new List<string>();
+        [DataMember(Name = "Texto")]
+        public List<string> Texto = new List<string>();
 
         [DataMember(Name = "Anio")]
         public int Anio = 0;
+
+        [DataMember(Name = "Mes")]
+        public int Mes = 0;
 
         [DataMember(Name = "ColorBorde1")]
         public string ColorBorde1 = "#3e95cd";

@@ -24,7 +24,6 @@ namespace webkyo.Controllers
         public ActionResult Index()
         {
             ViewBag.fecha = DateTime.Now;
-
             return View(db.Alumnos.ToList().OrderBy(a => a.Apellido));
         }
 
@@ -36,6 +35,24 @@ namespace webkyo.Controllers
                 anios.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
             }
             ViewBag.Anios = anios;
+        }
+
+        private void GetMeses()
+        {
+            List<SelectListItem> meses = new List<SelectListItem>();
+            meses.Add(new SelectListItem { Value = "1", Text = "Enero" });
+            meses.Add(new SelectListItem { Value = "2", Text = "Febrero" });
+            meses.Add(new SelectListItem { Value = "3", Text = "Marzo" });
+            meses.Add(new SelectListItem { Value = "4", Text = "Abril" });
+            meses.Add(new SelectListItem { Value = "5", Text = "Mayo" });
+            meses.Add(new SelectListItem { Value = "6", Text = "Junio" });
+            meses.Add(new SelectListItem { Value = "7", Text = "Julio" });
+            meses.Add(new SelectListItem { Value = "8", Text = "Agosto" });
+            meses.Add(new SelectListItem { Value = "9", Text = "Septiembre" });
+            meses.Add(new SelectListItem { Value = "10", Text = "Octubre" });
+            meses.Add(new SelectListItem { Value = "11", Text = "Noviembre" });
+            meses.Add(new SelectListItem { Value = "12", Text = "Diciembre" });
+            ViewBag.Meses = meses;
         }
 
         private void SetAuditoria(Asistencia asistencia)
@@ -84,21 +101,32 @@ namespace webkyo.Controllers
             return View();
         }
 
+        public ActionResult RedirectGraficosMes()
+        {
+            return RedirectToAction("Asistencia/GraphTodosMes", "Asistencia");
+        }
+        public ActionResult GraphTodosMes()
+        {
+            ViewBag.Title = "Detalles de Asistencias por mes";
+            this.GetAnios();
+            this.GetMeses();
+            return View("GraphTodosMes");
+        }
+        
+
         //[ValidateAntiForgeryToken]
         [HttpGet]
         public ActionResult generargrafico(string anio, int alumnoId)
         {
             Kyo.Entidades.Alumno alumno = db.Alumnos.Find(alumnoId);
             Kyo.Entidades.Dojo dojo = db.Dojos.Find(alumno.DojoId);
-
-            var asistenciasFechas = db.Asistencias.Where(asis => asis.AlumnoId == alumnoId && asis.Fecha.Year.ToString() == anio).Select(a => a.Fecha).OrderBy(a => a.Month);
-            var fechasPorMes = asistenciasFechas.GroupBy(f => f.Month, (key, g) => new { Mes = key, DiasMesAsistio = g.Count() });
-
-            AsistenciaGrafico graficoData = null;
-            foreach (var fecha in fechasPorMes)
+            AsistenciaGrafico graficoData = new Models.AsistenciaGrafico();
+            graficoData.InitMeses();
+            for (int i = 1; i < 13; i++)
             {
+                var asistenciasFechas = db.Asistencias.Where(asis => asis.AlumnoId == alumnoId && asis.Fecha.Year.ToString() == anio && asis.Fecha.Month == i).Select(a => a.Fecha).OrderBy(a => a.Month);
                 int semanas = 0;
-                DateTime mesAnio = new DateTime(int.Parse(anio), fecha.Mes, 1);
+                DateTime mesAnio = new DateTime(int.Parse(anio), i, 1);
                 int mes = mesAnio.Month;
                 //calculo la cantidad de semanas
                 while (mes == mesAnio.Month)
@@ -107,10 +135,60 @@ namespace webkyo.Controllers
                     semanas++;
                 }
 
-                int diasMes = semanas * dojo.DiasClasesSemanales;
-                graficoData = new Models.AsistenciaGrafico();
-                graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = fecha.DiasMesAsistio, DiasMes = diasMes });
+                if (asistenciasFechas.Count() > 0)
+                {
+                    var fechasPorMes = asistenciasFechas.GroupBy(f => f.Month, (key, g) => new { Mes = key, DiasMesAsistio = g.Count() });
+                    foreach (var fecha in fechasPorMes)
+                    {
+                        int diasMes = semanas * dojo.DiasClasesSemanales;
+                        graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = fecha.DiasMesAsistio, DiasMes = diasMes });
+                    }
+                }
+                else
+                {
+                    int diasMes = semanas * dojo.DiasClasesSemanales;
+                    graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = 0, DiasMes = diasMes });
+                }
             }
+            
+
+            return Json(graficoData, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult generargraficoAlumnosMes(string anio, string mes, int dojoId = 1)
+        {
+            var alumnos = db.Alumnos.ToList();
+            Kyo.Entidades.Dojo dojo = db.Dojos.Find(dojoId);
+            int semanas = 0;
+            int mess = int.Parse(mes);
+            DateTime mesAnio = new DateTime(int.Parse(anio), mess, 1);
+
+            //calculo la cantidad de semanas
+            while (int.Parse(mes) == mesAnio.Month)
+            {
+                mesAnio = mesAnio.AddDays(7);
+                semanas++;
+            }
+
+            int diasMes = semanas * dojo.DiasClasesSemanales;
+            AsistenciaGrafico graficoData = new Models.AsistenciaGrafico();
+
+            foreach (var alumno in alumnos)
+            {
+                var asistenciasFechas = db.Asistencias.Where(asis => asis.AlumnoId == alumno.Id && asis.Fecha.Year.ToString() == anio && asis.Fecha.Month == mess).Select(a => a.Fecha).OrderBy(a => a.Month);
+                if(asistenciasFechas.Count() > 0)
+                {
+                    var fechasPorMes = asistenciasFechas.GroupBy(f => f.Month, (key, g) => new { Mes = key, DiasMesAsistio = g.Count() });
+
+                    foreach (var fecha in fechasPorMes)
+                    {
+                        graficoData.Texto.Add(alumno.Nombre[0].ToString() +"."+ alumno.Apellido.Substring(0, 2));
+                        graficoData.Detalle.Add(new DetalleMeses { DiasAsistio = fecha.DiasMesAsistio, DiasMes = diasMes });
+                    }
+                }
+            }
+            
 
             return Json(graficoData, JsonRequestBehavior.AllowGet);
         }

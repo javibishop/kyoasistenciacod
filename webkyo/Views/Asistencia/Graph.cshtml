@@ -34,7 +34,7 @@
         var anio = $("#aniocombo").val();
         var alumno = getParameterByName('alumnoid');
 
-        $.get("/asistencia/generargrafico?anio=" + anio + "&alumnoId=" + alumno, function (data) {
+        $.get("/asistencia/generargrafico?anio=" + anio + "&alumnoId=" + alumno + "&dojoId=1", function (data) {
             var data1 = [];
             var data2 = [];
             var ColorFondo1 = [];
@@ -55,7 +55,7 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: data.Meses,
+                    labels: data.Texto,
                     datasets: [{
                         label: 'Asistencia en el mes',
                         data: data1, /*datos color 1*/
